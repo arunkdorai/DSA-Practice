@@ -64,16 +64,17 @@ class LinkedList {
     }
 
     removeFrom(index) {
-        if(index<0 || index>this.size) {
+        if(index < 0 || index >= this.size) {
+            console.log('Invalid Index. Index entered in less than 0 or greater than the Linked list index available')
             return null
         }
         let removedNode
-        if(index===0) {
+        if(index === 0) {
             removedNode = this.head
             this.head = this.head.next
         } else {
             let prev = this.head
-            for(let i=0; i<index-1; i++) {
+            for(let i = 0; i< index - 1; i++) {
                 prev = prev.next
             }
             removedNode = prev.next
@@ -82,6 +83,46 @@ class LinkedList {
         this.size--
         return removedNode.value
     }
+
+    removeValue(value) {
+        if(this.isEmpty()) {
+            return null
+        }
+        if(this.head.value === value) {
+            this.head = this.head.next
+            this.size--
+            return value
+        } else {
+            let prev = this.head
+            while(prev.next && prev.next.value !== value) {
+                prev = prev.next
+            }
+            if(prev.next) {
+                const removedNode = prev.next
+                prev.next = removedNode.next
+                this.size--
+                return value
+            }
+            return null
+        }
+    }
+
+    search(value) {
+        if(this.isEmpty()) {
+            return -1
+        }
+        let i=0
+        let curr = this.head
+        while(curr) {
+            if(curr.value === value) {
+                return i
+            }
+            curr = curr.next
+            i++
+        }
+        return -1
+    }
+    
 
     print() {
         if(this.isEmpty()) {
@@ -120,15 +161,8 @@ list.insert(50, 4)
 list.print()
 console.log(list.getSize())
 
-list.insert(60, 6)
-list.insert(70, -1)
-
-console.log(list.removeFrom(10))
-
-console.log(list.removeFrom(0))
-list.print()
-
-console.log(list.removeFrom(1))
-list.print()
-console.log(list.getSize())
-
+console.log(list.search(50))
+console.log(list.search(20))
+console.log(list.search(40))
+console.log(list.search(80))
+console.log(list.search(10))
