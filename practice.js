@@ -1,20 +1,50 @@
-function secondSmallest(arr) {
-    // Sort the array in ascending order
-    const sortedArray = arr.sort((a, b) => a - b);
-    
-    // Remove duplicates
-    const uniqueSortedArray = [...new Set(sortedArray)];
 
-    // Check if there are at least two unique numbers
-    if (uniqueSortedArray.length < 2) {
-        return null; // or any value you prefer to indicate there's no second smallest
+class Stack {
+    constructor() {
+        this.items = []
+    }
+    
+    push(element) {
+        this.items.push(element)
     }
 
-    // Return the second smallest number
-    return uniqueSortedArray[1];
+    pop() {
+        if(this.isEmpty()) {
+            return "Stack is empty"
+        }
+        return this.items.pop()
+    }
+
+    peek() {
+        if(this.isEmpty()) {
+            return "Stack is empty"
+        }
+        return this.items[this.items.length - 1]
+    }
+
+    isEmpty() {
+        return this.items.length === 0
+    }
+
+    size() {
+        return this.items.length
+    }
+
+    print() {
+        console.log(this.items.toString())
+    }
 }
 
-// Example usage:
-const numbers = [5, 3, 1, 4, 2, 1];
-const result = secondSmallest(numbers);
-console.log(result); // Output: 2
+const stack = new Stack
+
+stack.push(1)
+stack.push(2)
+stack.push(3)
+stack.print()
+size()
+
+stack.pop()
+stack.print()
+size()
+
+peek()
