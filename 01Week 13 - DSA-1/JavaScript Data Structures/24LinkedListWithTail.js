@@ -105,6 +105,9 @@ class LinkedList {
 
 }
 
+module.exports = LinkedList
+
+/*
 const list = new LinkedList()
 console.log('List is empty?', list.isEmpty())
 console.log('List size ', list.getSize())
@@ -120,3 +123,5 @@ console.log('List size ', list.getSize())
 list.removeFromFront()
 list.removeFromEnd()
 list.print()
+
+*/
