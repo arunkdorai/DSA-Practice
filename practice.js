@@ -1,38 +1,49 @@
-class Stack {
+class Node {
+    constructor(value) {
+        this.value = value
+        this.left = null
+        this.right = null
+    }
+}
+
+class BinarySearchTree {
     constructor() {
-        this.items = []
-    }
-
-    push(element) {
-        this.items.push(element)
-    }
-
-    pop() {
-        if(this.isEmpty()) {
-            return "Stack is empty"
-        }
-        let mid
-        mid = Math.floor(this.items.length / 2)
-        return this.items[mid] = undefined
+        this.root = null
     }
 
     isEmpty() {
-        return this.items.length === 0
+        return this.root === null
     }
 
-    print() {
-        console.log(this.items.toString())
+    insert(value) {
+        const newNode = new Node(value)
+        if(this.isEmpty()) {
+            this.root = newNode
+        } else {
+            this.insertNode(this.root, newNode)
+        }
     }
 
-
+    insertNode(root, newNode) {
+        if(newNode.value < root.value) {
+            if(root.left === null) {
+                root.left = newNode
+            } else {
+                this.insertNode(root.left, newNode)
+            }
+        } else {
+            if(root.right === null) {
+                root.right = newNode
+            } else {
+                this.insertNode(root.right, newNode)
+            }
+        }
+    }
 }
 
-const stack = new Stack()
+const bst = new BinarySearchTree()
+console.log('Is the tree empty?', bst.isEmpty())
 
-stack.push(1)
-stack.push(2)
-stack.push(3)
-
-console.log(stack.pop())
-
-stack.print()
+bst.insert(10)
+bst.insert(5)
+bst.insert(15)
