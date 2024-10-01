@@ -92,6 +92,6 @@ console.log(bst.search(bst.root, 10))
 console.log(bst.search(bst.root, 5))
 console.log(bst.search(bst.root, 15))
 console.log(bst.search(bst.root, 20))
-
-// bst.preOrder(bst.root)
-bst.inOrder(bst.root)
+bst.preOrder(bst.root) // Output: 10 5 3 7 15
+// bst.inOrder(bst.root) // Output: 3 5 7 10 15
+// bst.postOrder(bst.root) // Output: 3 7 5 15 10
