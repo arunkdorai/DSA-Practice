@@ -1,4 +1,17 @@
-/* Steps for the Breadth-First Search (BFS) algorithm for tree traversal:
+/* Breadth First Search (BFS)
+
+With BFS algorithm, we explore all nodes at the present depth prior to moving on to the nodes at the next depth level.
+
+BFS Traversal Approach
+1. Create a queue
+2. Enqueue the root node
+3. As long as a node exists in the queue:
+   a. Dequeue the node from the front
+   b. Read the node's value
+   c. Enqueue the node's left child if it exists
+   d. Enqueue the node's right child if it exists
+
+Steps for the Breadth-First Search (BFS) algorithm for tree traversal:
 
 ### Steps for Breadth-First Search (BFS)
 
@@ -148,3 +161,118 @@ This BFS traversal visits all nodes level by level, confirming the breadth-first
 
 */
 
+class Node {
+   constructor(value) {
+       this.value = value
+       this.left = null
+       this.right = null
+   }
+}
+
+class BinarySearchTree {
+   constructor() {
+       this.root = null
+   }
+
+   isEmpty() {
+       return this.root === null
+   }
+
+   insert(value) {
+       const newNode = new Node(value)
+       if(this.isEmpty()) {
+           this.root = newNode
+       } else {
+           this.insertNode(this.root, newNode)
+       }
+   }
+
+   insertNode(root, newNode) {
+       if(newNode.value < root.value) {
+           if(root.left === null) {
+               root.left = newNode
+           } else {
+               this.insertNode(root.left, newNode)
+           }
+       } else {
+           if(root.right === null) {
+               root.right = newNode
+           } else {
+               this.insertNode(root.right, newNode)
+           }
+       }
+   }
+
+   search(root, value) {
+       if(!root) {
+           return false
+       } else {
+           if(value === root.value) {
+               return true
+           } else if(value < root.value) {
+               return this.search(root.left, value)
+           } else {
+               return this.search(root.right, value)
+           }
+       }
+   }
+
+   preOrder(root) {
+       if(root) {
+           console.log(root.value)
+           this.preOrder(root.left)
+           this.preOrder(root.right)
+       }
+   }
+
+   inOrder(root) {
+       if(root) {
+           this.inOrder(root.left)
+           console.log(root.value)
+           this.inOrder(root.right)
+       }
+   }
+
+   postOrder(root) {
+       if(root) {
+           this.postOrder(root.left)
+           this.postOrder(root.right)
+           console.log(root.value)
+       }
+   }
+
+   levelOrder() { // The method is called as level order since we travel one level at a time.
+      // Use the optimised queue implementation (using objects).
+      // As relying on array operations can lead to a higher time complexity.
+      const queue = []
+      queue.push(this.root)
+      while(queue.length) {
+         let curr = queue.shift()
+         console.log(curr.value)
+         if(curr.left) {
+            queue.push(curr.left)
+         }
+         if(curr.right) {
+            queue.push(curr.right)
+         }
+      }
+   }
+}
+
+const bst = new BinarySearchTree()
+console.log('Is the tree empty?', bst.isEmpty())
+
+bst.insert(10)
+bst.insert(5)
+bst.insert(15)
+bst.insert(3)
+bst.insert(7)
+
+console.log(bst.search(bst.root, 10))
+console.log(bst.search(bst.root, 5))
+console.log(bst.search(bst.root, 15))
+console.log(bst.search(bst.root, 20))
+// bst.preOrder(bst.root) // Output: 10 5 3 7 15
+// bst.inOrder(bst.root) // Output: 3 5 7 10 15
+// bst.postOrder(bst.root) // Output: 3 7 5 15 10
+bst.levelOrder()
