@@ -192,7 +192,7 @@ class Graph {
 
     removeVertex(vertex) {
         if(!this.adjacencyList[vertex]) {
-            return console.log("No vertex")
+            return
         }
         for(let adjacentVertex of this.adjacencyList[vertex]) {
             this.removeEdge(vertex, adjacentVertex)
@@ -219,3 +219,9 @@ graph.display()
 
 console.log(graph.hasEdge("A", "B"))
 console.log(graph.hasEdge("A", "C"))
+
+// graph.removeEdge("A", "B")
+// graph.display()
+
+graph.removeVertex("B")
+graph.display()
