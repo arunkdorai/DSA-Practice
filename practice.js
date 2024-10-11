@@ -3,15 +3,15 @@ class MaxHeap {
         this.heap = []
     }
 
-    parentIndex(index) {
+    parent(index) {
         return Math.floor((index - 1) / 2)
     }
 
-    leftChildIndex(index) {
+    left(index) {
         return 2 * index + 1
     }
 
-    rightChildIndex(index) {
+    right(index) {
         return 2 * index + 2
     }
 
@@ -25,11 +25,11 @@ class MaxHeap {
     }
 
     heapifyUp(index) {
-        let parent = this.parentIndex(index)
+        let parent = this.parent(index)
         while(index > 0 && this.heap[index] > this.heap[parent]) {
             this.swap(index, parent)
             index = parent
-            parent = this.parentIndex(index)
+            parent = this.parent(index)
         }
     }
 
@@ -37,15 +37,15 @@ class MaxHeap {
         if(this.heap.length === 0) return null
         if(this.heap.length === 1) return this.heap.pop()
 
-        let root = this.heap[0]
+        const root = this.heap[0]
         this.heap[0] = this.heap.pop()
         this.heapifyDown(0)
         return root
     }
 
     heapifyDown(index) {
-        let left = this.leftChildIndex(index)
-        let right = this.rightChildIndex(index)
+        let left = this.left(index)
+        let right = this.right(index)
         let largest = index
 
         if(left < this.heap.length && this.heap[left] > this.heap[largest]) {
@@ -67,27 +67,22 @@ class MaxHeap {
         }
     }
 
-    getHeap() {
-        return this.heap
+    heapSort() {
+        let sorted = []
+        while(this.heap.length > 0) {
+            sorted.unshift(this.remove())
+        }
+        return sorted
     }
 }
 
-const maxHeap = new MaxHeap()
+const hsort = new MaxHeap()
 
-maxHeap.insert(50)
-maxHeap.insert(43)
-maxHeap.insert(21)
-maxHeap.insert(4)
-maxHeap.insert(56)
-maxHeap.insert(36)
+let arr = [7, 3, 1, 8, 5, 2, 6];
 
-console.log(maxHeap.getHeap())
+hsort.buildHeap(arr)
 
-maxHeap.remove()
+console.log("Max-Heap built from array:", hsort.heap);
 
-console.log(maxHeap.getHeap())
-
-maxHeap.buildHeap([100, 130, 44, 53, 23, 47, 64])
-
-
-console.log(maxHeap.getHeap())
+let sortedArr = hsort.heapSort();
+console.log("Array sorted in ascending order using Heap Sort:", sortedArr)
