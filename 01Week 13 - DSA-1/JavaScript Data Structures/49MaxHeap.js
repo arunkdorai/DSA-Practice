@@ -1,14 +1,14 @@
-/* Min-Heap: The value of the parent node is always less than or equal to the values of its children. ( or The value of each node is greater than or equal to the value of its parent. The smallest element is at the root.)
+/* Max-Heap: The value of the parent node is always greater than or equal to the values of its children. ( or The value of each node is less than or equal to the value of its parent. The largest element is at the root.)
 
-Mapping the elements of a heap into an array is trivial: if a node is stored an index k, then its left child is stored at index 2k + 1 and its right child at index 2k + 2.
+Mapping the elements of a heap into an array is trivial: if a node is stored at index k, then its left child is stored at index 2k + 1 and its right child at index 2k + 2.
 
-How is Min Heap represented? 
-Let us go through the representation of Min heap. So basically Min Heap is a complete binary tree. A Min heap is typically represented as an array. The root element will be at Arr[0]. For any ith node, i.e., Arr[i] 
+How is Max Heap represented? 
+A-Max Heap is a Complete Binary Tree. A-Max heap is typically represented as an array. The root element will be at Arr[0]. Below table shows indexes of other nodes for the ith node, i.e., Arr[i]: 
 
 
-Arr[(i -1) / 2] returns its parent node.
-Arr[(2 * i) + 1] returns its left child node.
-Arr[(2 * i) + 2] returns its right child node.
+Arr[(i-1)/2] Returns the parent node. 
+Arr[(2*i)+1] Returns the left child node. 
+Arr[(2*i)+2] Returns the right child node.
 
 Operations of Heap Data Structure:
 
@@ -19,21 +19,21 @@ Peek: to check or find the most prior element in the heap, (max or min element f
 
 Explanation: Now let us understand how the various helper methods maintain the order of the heap
 
-The helper methods like rightChild, leftChild, and parent help us to get the element and its children at the specified index.
+The helper methods like rightChild, leftChild, parent  help us to get the element and its children at the specified index.
 The add() and remove() methods handle the insertion and deletion process
 The heapifyDown() method maintains the heap structure when an element is deleted.
 The heapifyUp() method maintains the heap structure when an element is added to the heap. 
 The peek() method returns the root element of the heap and swap() method interchanges value at two nodes.
-
+ 
 */
 
 
-class MinHeap {
+class MaxHeap {
     constructor() {
       this.heap = [];
     }
   
-    // Helper methods
+     // Helper methods
     parentIndex(index) {
       return Math.floor((index - 1) / 2);
     }
@@ -59,14 +59,14 @@ class MinHeap {
     // Heapify up to maintain heap property after insertion
     heapifyUp(index) {
       let parent = this.parentIndex(index);
-      while (index > 0 && this.heap[index] < this.heap[parent]) {
+      while (index > 0 && this.heap[index] > this.heap[parent]) {
         this.swap(index, parent);
         index = parent;
         parent = this.parentIndex(index);
       }
     }
   
-    // Remove the root (minimum element)
+    // Remove the root (maximum element)
     remove() {
       if (this.heap.length === 0) return null;
       if (this.heap.length === 1) return this.heap.pop();
@@ -81,17 +81,17 @@ class MinHeap {
     heapifyDown(index) {
       let left = this.leftChildIndex(index);
       let right = this.rightChildIndex(index);
-      let smallest = index;
+      let largest = index;
   
-      if (left < this.heap.length && this.heap[left] < this.heap[smallest]) {
-        smallest = left;
+      if (left < this.heap.length && this.heap[left] > this.heap[largest]) {
+        largest = left;
       }
-      if (right < this.heap.length && this.heap[right] < this.heap[smallest]) {
-        smallest = right;
+      if (right < this.heap.length && this.heap[right] > this.heap[largest]) {
+        largest = right;
       }
-      if (smallest !== index) {
-        this.swap(index, smallest);
-        this.heapifyDown(smallest);
+      if (largest !== index) {
+        this.swap(index, largest);
+        this.heapifyDown(largest);
       }
     }
   
@@ -109,22 +109,16 @@ class MinHeap {
     }
   }
   
-  const minHeap = new MinHeap();
-  
-  // Insert values into the heap
-  minHeap.insert(10);
-  minHeap.insert(5);
-  minHeap.insert(20);
-  minHeap.insert(3);
-  minHeap.insert(8);
-  
-  console.log("Heap after insertions:", minHeap.getHeap()); // Should print the heap structure
-  
-  // Remove the minimum element (root)
-  console.log("Removed element:", minHeap.remove()); // Should remove the minimum (3)
-  console.log("Heap after removal:", minHeap.getHeap()); // Should print the heap structure
-  
-  // Build a heap from an array
-  minHeap.buildHeap([15, 5, 20, 1, 17, 10]);
-  console.log("Heap after building from array:", minHeap.getHeap()); // Should print the heap structure
-  
+
+// Test Workout 2
+const maxHeap = new MaxHeap();
+
+maxHeap.buildHeap([3, 9, 2, 1, 4, 5]);
+
+console.log("Max-Heap after building:", maxHeap.getHeap());
+
+maxHeap.insert(10);
+console.log("Max-Heap after insertion:", maxHeap.getHeap());
+
+maxHeap.remove();
+console.log("Max-Heap after removing the root:", maxHeap.getHeap());
