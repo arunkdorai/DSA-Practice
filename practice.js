@@ -67,25 +67,41 @@ class Graph {
         }
         return result
     }
+
+    dfs(start) {
+        let stack = [start]
+        let visited = {}
+        visited[start] = true
+        let result = []
+
+        while(stack.length > 0) {
+            let vertex = stack.pop()
+            result.push(vertex)
+
+            this.adjacencyList[vertex].forEach(neighbor => {
+                if(!visited[neighbor]) {
+                    visited[neighbor] = true
+                    stack.push(neighbor)
+                }
+            })
+        }
+        return result
+    }
 }
 
 const graph = new Graph()
 
-graph.addVertex('A')
-graph.addVertex('B')
-graph.addVertex('C')
+graph.addVertex("A");
+graph.addVertex("B");
+graph.addVertex("C");
+graph.addVertex("D");
+graph.addVertex("E");
+graph.addVertex("F");
 
-graph.addEdge('A', 'B')
-graph.addEdge('B', 'C')
+graph.addEdge("A", "B");
+graph.addEdge("A", "C");
+graph.addEdge("B", "D");
+graph.addEdge("B", "E");
+graph.addEdge("C", "F");
 
-graph.display()
-
-console.log(graph.hasEdge('A', 'B'), graph.hasEdge('B', 'C'), graph.hasEdge('C', 'A'))
-
-graph.removeVertex('A')
-
-graph.display()
-
-graph.removeEdge('B', 'C')
-
-graph.display()
+console.log(graph.dfs("A"))
