@@ -47,6 +47,26 @@ class Graph {
             console.log(vertex + ' -> ' + [...this.adjacencyList[vertex]])
         }
     }
+
+    bfs(start) {
+        let queue = [start]
+        let visited = {}
+        visited[start] = true
+        let result = []
+
+        while(queue.length > 0) {
+            let vertex = queue.shift()
+            result.push(vertex)
+
+            this.adjacencyList[vertex].forEach(neighbor => {
+                if(!visited[neighbor]) {
+                    visited[neighbor] = true
+                    queue.push(neighbor)
+                }
+            })
+        }
+        return result
+    }
 }
 
 const graph = new Graph()
